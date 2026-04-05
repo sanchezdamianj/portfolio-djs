@@ -7,7 +7,7 @@ const Hero: React.FC = () => {
   const { t } = useTranslation();
   
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden pb-24 md:pb-32">
       {/* Animated grid background */}
       <div className="absolute inset-0 bg-grid-animated opacity-40" />
       
@@ -143,7 +143,7 @@ const Hero: React.FC = () => {
           </div>
           
           {/* Stats / Quick info */}
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm font-mono">
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm font-mono mb-8 md:mb-10">
             <div className="flex items-center gap-2 text-zinc-400">
               <span className="text-emerald-500">▸</span>
               <span>{t('hero.location')}</span>
@@ -152,7 +152,7 @@ const Hero: React.FC = () => {
               <span className="text-emerald-500">▸</span>
               <span>{t('hero.remote')}</span>
             </div>
-            <div className="flex items-center gap-2 text-zinc-400">
+            <div className="w-full md:w-auto flex items-center justify-center gap-2 text-zinc-400 mt-2 md:mt-0">
               <span className="text-emerald-500">▸</span>
               <span>{t('hero.stack')}</span>
             </div>
@@ -163,6 +163,7 @@ const Hero: React.FC = () => {
       {/* Scroll indicator */}
       <motion.div 
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        style={{ marginBottom: '2rem' }}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 2, duration: 0.6 }}
