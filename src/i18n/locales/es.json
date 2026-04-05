@@ -1,0 +1,47 @@
+{
+  "nav": {
+    "about": "Sobre Mí",
+    "experience": "Experiencia",
+    "projects": "Proyectos",
+    "contact": "Contactame"
+  },
+  "hero": {
+    "available": "disponible para oportunidades",
+    "senior": "Ingeniero Fullstack Senior",
+    "architect": "Arquitecto Fullstack | Tech Lead",
+    "description": "Construyendo interfaces escalables y experiencias memorables. React, Node.js, AI Orchestration y arquitecturas backend robustas.",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
+    "contact": "Contactame",
+    "resume": "CV",
+    "location": "Buenos Aires, AR",
+    "remote": "Remoto / Híbrido",
+    "stack": "React / Node.js / AI Orchestration / TS",
+    "scroll": "Scroll"
+  },
+  "about": {
+    "title": "Sobre Mí",
+    "bio": "Sobre mí",
+    "years": "Años",
+    "companies": "Empresas",
+    "users": "Usuarios",
+    "techStack": "Tech Stack",
+    "fullstack": "Fullstack"
+  },
+  "experience": {
+    "title": "Experiencia Profesional",
+    "location": "Buenos Aires, Argentina"
+  },
+  "projects": {
+    "title": "Proyectos",
+    "description": "Proyectos personales, desafíos técnicos y experimentos. Todos disponibles en mi GitHub.",
+    "viewGithub": "Ver en GitHub",
+    "seeMore": "Ver más proyectos en GitHub"
+  },
+  "footer": {
+    "navigation": "Navegación",
+    "getInTouch": "Contactame",
+    "rights": "Todos los derechos reservados.",
+    "builtWith": "Hecho con React + TypeScript + Tailwind CSS"
+  }
+}

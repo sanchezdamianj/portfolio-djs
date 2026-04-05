@@ -1,85 +1,149 @@
-import React from 'react';
+import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { projects } from '../data/portfolio';
+import { fadeInUp, staggerContainer } from './variants';
 
 const Projects: React.FC = () => {
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language as 'en' | 'es';
+  
   return (
-    <section id="projects" className="section-padding bg-slate-50 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-grid-black/[0.02] bg-[size:60px_60px]" />
-      <div className="absolute top-20 left-1/3 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse" />
+    <section id="projects" className="section-padding bg-zinc-950 relative overflow-hidden">
+      {/* Grid background */}
+      <div className="absolute inset-0 bg-grid opacity-20" />
+      
+      {/* Decorative */}
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-emerald-500/5 rounded-full blur-[150px]" />
       
       <div className="container-custom relative z-10">
-        <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-bold mb-6">
-            <span className="gradient-text">Featured Projects</span>
+        {/* Section header */}
+        <motion.div 
+          className="mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+        >
+          <div className="flex items-center gap-3 mb-4">
+            <span className="font-mono text-emerald-500 text-sm">03</span>
+            <span className="text-zinc-700">/</span>
+            <span className="text-zinc-500 text-sm uppercase tracking-widest">{t('nav.projects')}</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-white">
+            {t('projects.title')}
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full" />
-        </div>
+          <div className="mt-4 h-px w-20 bg-gradient-to-r from-emerald-500 to-transparent" />
+          <p className="text-zinc-400 mt-6 max-w-2xl text-base">
+            {t('projects.description')}
+          </p>
+        </motion.div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {projects.map((project) => (
-            <div key={project.id} className="group bg-white rounded-3xl overflow-hidden shadow-xl border border-slate-100 card-hover">
-              {/* Project header with gradient */}
-              <div className="h-56 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
-                <div className="absolute inset-0 bg-black opacity-20" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-white text-center z-10">
-                    <div className="w-24 h-24 mx-auto mb-4 bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                      </svg>
-                    </div>
-                    <h3 className="text-2xl font-bold px-6 group-hover:text-blue-300 transition-colors duration-200">
-                      {project.title}
-                    </h3>
-                  </div>
-                </div>
+        {/* Projects grid */}
+        <motion.div 
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-5"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+        >
+          {projects.map((project, index) => (
+            <motion.a 
+              key={project.id}
+              href={project.github || project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="card p-6 group block relative overflow-hidden"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ 
+                y: -5,
+                borderColor: 'rgba(16, 185, 129, 0.4)',
+                boxShadow: '0 20px 40px rgba(16, 185, 129, 0.1)'
+              }}
+            >
+              {/* Glow effect on hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/0 via-emerald-500/5 to-emerald-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              {/* Project icon */}
+              <div className="relative w-12 h-12 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center mb-5 group-hover:border-emerald-500/50 group-hover:bg-emerald-500/10 transition-all duration-300">
+                <svg className="w-6 h-6 text-zinc-500 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
               </div>
               
-              <div className="p-8">
-                <p className="text-slate-600 mb-8 leading-relaxed line-clamp-3 group-hover:text-slate-700 transition-colors duration-200">
-                  {project.description}
-                </p>
-                
-                <div className="mb-8">
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, index) => (
-                      <span 
-                        key={index}
-                        className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm rounded-lg font-medium transition-colors duration-200"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                
-                <div className="flex gap-3">
-                  {project.link && (
-                    <a 
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 text-center bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
-                    >
-                      View Project
-                    </a>
-                  )}
-                  {project.github && (
-                    <a 
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 text-center border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700 px-6 py-3 rounded-xl font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-md hover:shadow-lg"
-                    >
-                      GitHub
-                    </a>
-                  )}
-                </div>
+              {/* Number badge */}
+              <div className="absolute top-4 right-4 text-xs font-mono text-zinc-700 group-hover:text-emerald-500/50 transition-colors">
+                {String(index + 1).padStart(2, '0')}
               </div>
-            </div>
+              
+              {/* Title */}
+              <h3 className="relative text-lg font-semibold text-white mb-2 group-hover:text-emerald-400 transition-colors">
+                {project.title[lang]}
+              </h3>
+              
+              {/* Description */}
+              <p className="relative text-zinc-400 text-sm leading-relaxed mb-4 line-clamp-3 group-hover:text-zinc-300 transition-colors">
+                {project.description[lang]}
+              </p>
+              
+              {/* Technologies */}
+              <div className="relative flex flex-wrap gap-2 mb-4">
+                {project.technologies.slice(0, 4).map((tech, index) => (
+                  <span 
+                    key={index}
+                    className="text-xs font-mono text-zinc-600 bg-zinc-800/50 px-2 py-1 rounded group-hover:text-emerald-500/70 group-hover:bg-zinc-800 transition-colors"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              
+              {/* Link indicator */}
+              <div className="relative flex items-center gap-2 text-sm text-zinc-500 group-hover:text-emerald-500 transition-colors">
+                <span className="font-mono text-xs">{t('projects.viewGithub')}</span>
+                <motion.svg 
+                  className="w-4 h-4" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                  initial={{ x: 0 }}
+                  whileHover={{ x: 4 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </motion.svg>
+              </div>
+            </motion.a>
           ))}
-        </div>
+        </motion.div>
+        
+        {/* GitHub CTA */}
+        <motion.div 
+          className="mt-16 text-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+        >
+          <motion.a 
+            href="https://github.com/sanchezdamianj"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-xl border border-zinc-800 text-zinc-400 hover:border-emerald-500/50 hover:text-emerald-500 transition-all duration-300 group text-base"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            {t('projects.seeMore')}
+            <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </motion.a>
+        </motion.div>
       </div>
     </section>
   );

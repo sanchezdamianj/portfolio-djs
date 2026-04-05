@@ -1,108 +1,325 @@
 @import "tailwindcss";
 
-@layer base {
-  body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  }
+/* ========================================
+   MATRIX ELEGANCE - Vercel Style Theme
+   ======================================== */
+
+:root {
+  /* Core colors */
+  --bg-primary: #050505;
+  --bg-secondary: #0a0a0a;
+  --bg-elevated: #111111;
+  --bg-card: #0f0f0f;
   
-  /* Custom grid background */
-  .bg-grid-black\[0\.02\] {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60' width='60' height='60'%3e%3cg fill='none' stroke='black' stroke-width='0.5' opacity='0.02'%3e%3cpath d='M0 0h60v60H0z'/%3e%3cpath d='M0 0h60v60H0z'/%3e%3c/g%3e%3c/svg%3e");
-  }
+  /* Matrix green - delicate */
+  --green-primary: #10b981;
+  --green-muted: #059669;
+  --green-glow: rgba(16, 185, 129, 0.15);
+  --green-subtle: rgba(16, 185, 129, 0.08);
+  
+  /* Text */
+  --text-primary: #e4e4e7;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  
+  /* Borders */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-accent: rgba(16, 185, 129, 0.3);
+  
+  /* Font */
+  font-family: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-@layer components {
-  .gradient-text {
-    @apply bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 bg-clip-text text-transparent;
-  }
-  
-  .card-hover {
-    @apply transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 hover:border-slate-200;
-  }
-  
-  .section-padding {
-    @apply py-20 lg:py-32;
-  }
-  
-  .container-custom {
-    @apply max-w-7xl mx-auto px-6 sm:px-8 lg:px-12;
-  }
-  
-  .text-balance {
-    text-wrap: balance;
-  }
-  
-  .animation-delay-2000 {
-    animation-delay: 2s;
-  }
-  
-  .animation-delay-4000 {
-    animation-delay: 4s;
-  }
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  @apply bg-slate-100;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-slate-300 rounded-full hover:bg-slate-400;
-}
-
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
 
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--green-primary);
+  color: var(--bg-primary);
+}
+
+.font-mono {
+  font-family: 'Geist Mono', 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, monospace;
+}
+
 @layer components {
+  /* Text styles */
   .gradient-text {
-    @apply bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 bg-clip-text text-transparent;
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, var(--text-primary) 0%, var(--green-primary) 50%, var(--text-primary) 100%);
   }
   
-  .card-hover {
-    @apply transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 hover:border-slate-200;
+  .text-gradient-green {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, var(--green-primary), #34d399);
   }
   
+  /* Cards */
+  .card {
+    @apply rounded-xl border transition-all duration-300;
+    background: var(--bg-card);
+    border-color: var(--border-subtle);
+  }
+  
+  .card:hover {
+    border-color: var(--border-accent);
+    box-shadow: 0 0 30px var(--green-glow);
+  }
+  
+  /* Buttons */
+  .btn-primary {
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-200;
+    background: var(--text-primary);
+    color: var(--bg-primary);
+  }
+  
+  .btn-primary:hover {
+    background: var(--green-primary);
+    box-shadow: 0 0 20px var(--green-glow);
+  }
+  
+  .btn-outline {
+    @apply px-6 py-3 rounded-lg font-medium border transition-all duration-200;
+    border-color: var(--border-subtle);
+    color: var(--text-secondary);
+  }
+  
+  .btn-outline:hover {
+    border-color: var(--green-primary);
+    color: var(--green-primary);
+    box-shadow: 0 0 20px var(--green-glow);
+  }
+  
+  /* Section padding */
   .section-padding {
-    @apply py-20 lg:py-32;
+    @apply py-24 md:py-32;
   }
   
   .container-custom {
-    @apply max-w-7xl mx-auto px-6 sm:px-8 lg:px-12;
+    @apply max-w-6xl mx-auto px-6;
   }
   
-  .text-balance {
-    text-wrap: balance;
-  }
-  
-  .animation-delay-2000 {
-    animation-delay: 2s;
-  }
-  
-  .animation-delay-4000 {
-    animation-delay: 4s;
+  /* Container large */
+  .container-lg {
+    @apply max-w-7xl mx-auto px-6;
   }
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradient 3s ease infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes grid-move {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(60px, 60px);
+  }
+}
+
+/* Grid background pattern */
+.bg-grid {
+  background-image: 
+    linear-gradient(to right, var(--border-subtle) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border-subtle) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Animated grid */
+.bg-grid-animated {
+  background-image: 
+    linear-gradient(to right, rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: grid-move 20s linear infinite;
+}
+
+/* Glow effects */
+.glow-green {
+  box-shadow: 0 0 40px var(--green-glow);
+}
+
+.glow-green-sm {
+  box-shadow: 0 0 20px var(--green-glow);
+}
+
+.text-glow {
+  text-shadow: 0 0 30px var(--green-glow);
+}
+
+/* Terminal-style decorative element */
+.terminal-dot {
   width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green-primary);
+  box-shadow: 0 0 10px var(--green-primary);
+}
+
+/* Badge / Tag style */
+.tag {
+  @apply px-3 py-1 rounded-md text-sm font-medium;
+  background: var(--green-subtle);
+  color: var(--green-primary);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.tag:hover {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: var(--green-primary);
+}
+
+/* ========================================
+   CUSTOM SCROLLBAR
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-slate-100;
+  background: var(--bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-300 rounded-full hover:bg-slate-400;
+  background: var(--border-subtle);
+  border-radius: 3px;
 }
 
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.3);
+}
+
+/* ========================================
+   ANIMATION CLASSES
+   ======================================== */
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Stagger children animations */
+.stagger-children > * {
+  opacity: 0;
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+
+/* ========================================
+   TYPOGRAPHY
+   ======================================== */
+
+.font-mono {
+  font-family: 'Geist Mono', 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, 'Cascadia Code', monospace;
+}
+
+/* ========================================
+   UTILITIES
+   ======================================== */
+
+.border-gradient {
+  position: relative;
+}
+
+.border-gradient::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--green-primary), transparent, var(--green-primary));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.border-gradient:hover::before {
+  opacity: 1;
 }
